@@ -10,12 +10,10 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["nuget.config", "."]
-COPY ["src/Web/Website/Website.csproj", "src/Web/Website/"]
-
+COPY ["Website.csproj", "."]
 RUN --mount=type=cache,id=nuget,target=/root/.nuget/packages \
-    dotnet restore "src/Web/Website/Website.csproj"
+    dotnet restore "./Website.csproj"
 
-WORKDIR "/src/src/Web/Website"
 COPY . .
 RUN --mount=type=cache,id=nuget,target=/root/.nuget/packages \
     dotnet build "Website.csproj" -c $BUILD_CONFIGURATION -o /app/build
