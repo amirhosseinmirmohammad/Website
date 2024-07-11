@@ -22,7 +22,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: ./Dockerfile # Explicitly specify the Dockerfile location
+          file: ./src/src/Web/Website" # Explicitly specify the Dockerfile location
           platforms: linux/amd64,linux/arm64
           push: true
           tags: amirhosseinmirmohammad17/website:latest
