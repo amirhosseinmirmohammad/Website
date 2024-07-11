@@ -1,27 +1,23 @@
-# Use the SDK image for building
+# Stage 1: Build the application
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-
-# Set the working directory
 WORKDIR /src
 
 # Copy the project file and restore dependencies
-COPY ["Website.csproj", "."]
-RUN dotnet restore "./src/Website/Website.csproj"
+COPY ["src/Website/Website.csproj", "src/Website/"]
+RUN dotnet restore "src/Website/Website.csproj"
 
-# Copy the rest of the source code
+# Copy the entire project folder
 COPY . .
 
 # Change directory to where the csproj file is located
-WORKDIR /src
+WORKDIR "/src/src/Website"
+RUN dotnet build "Website.csproj" -c Release -o /app/build
 
-# Build the project
-RUN dotnet build "./src/Website/Website.csproj" -c Release -o /app/build
-
-# Publish the application
+# Stage 2: Publish the application
 FROM build AS publish
-RUN dotnet publish "./src/Website/Website.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "Website.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
-# Runtime image
+# Stage 3: Runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
