@@ -11,11 +11,12 @@ RUN dotnet restore "./Website.csproj"
 # Copy the rest of the source code
 COPY . .
 
-# Change directory to where the csproj file is located
-WORKDIR /src
-
 # Build the project
 RUN dotnet build "./Website.csproj" -c Release -o /app/build
+
+# If the build fails, investigate further with detailed logs
+# Example:
+# RUN dotnet build "./Website.csproj" -c Release -o /app/build --verbosity detailed
 
 # Publish the application
 FROM build AS publish
