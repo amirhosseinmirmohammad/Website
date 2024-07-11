@@ -9,10 +9,10 @@ RUN dotnet restore "./Website.csproj"
 # Copy the rest of the source code and build
 # Copy the rest of the source code
 COPY . .
-WORKDIR "/src/src/Web/Website"
+WORKDIR "/src/Web/Website"
 
 # Change directory to where the csproj file is located
-WORKDIR /src
+WORKDIR /src/Web/Website
 
 # Build the project
 RUN dotnet build "./Website.csproj" -c Release -o /app/build
