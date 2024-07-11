@@ -6,21 +6,20 @@ WORKDIR /src
 
 # Copy the project file and restore dependencies
 COPY ["Website.csproj", "."]
-RUN dotnet restore "./Website.csproj"
+RUN dotnet restore "./src/Website/Website.csproj"
 
 # Copy the rest of the source code
 COPY . .
 
-# Build the project
-RUN dotnet build "./Website.csproj" -c Release -o /app/build
+# Change directory to where the csproj file is located
+WORKDIR /src
 
-# If the build fails, investigate further with detailed logs
-# Example:
-# RUN dotnet build "./Website.csproj" -c Release -o /app/build --verbosity detailed
+# Build the project
+RUN dotnet build "./src/Website/Website.csproj" -c Release -o /app/build
 
 # Publish the application
 FROM build AS publish
-RUN dotnet publish "./Website.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./src/Website/Website.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 # Runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
