@@ -1,4 +1,4 @@
-#See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
+# See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER app
@@ -9,8 +9,9 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["src/Web/Website/Website.csproj", "src/Web/Website/"]
-RUN dotnet restore "src/Web/Website/Website.csproj"
+COPY ["src/Web/Website/Website.csproj", "/src/Web/Website/"]
+RUN ls -al /src/Web/Website/ # List files to verify Website.csproj presence
+RUN dotnet restore "/src/Web/Website/Website.csproj" --verbosity detailed
 COPY . .
 WORKDIR "/src/src/Web/Website"
 RUN dotnet build "Website.csproj" -c $BUILD_CONFIGURATION -o /app/build
