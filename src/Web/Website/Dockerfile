@@ -10,22 +10,25 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 
-# Step 1: Copy the Website.csproj file
+# Step 1: Add debug command to list files before copying
+RUN echo "Listing /src directory before COPY command" && ls -al /src
+
+# Step 2: Copy the Website.csproj file
 COPY ["src/Web/Website/Website.csproj", "/src/Web/Website/"]
 
-# Step 2: List files in the /src/Web/Website/ directory to verify presence of Website.csproj
-RUN ls -al /src/Web/Website/
+# Step 3: Add debug command to list files after copying
+RUN echo "Listing /src/Web/Website directory after COPY command" && ls -al /src/Web/Website
 
-# Step 3: Restore dependencies
+# Step 4: Restore dependencies
 RUN dotnet restore "/src/Web/Website/Website.csproj"
 
-# Step 4: Copy the remaining files
+# Step 5: Copy the remaining files
 COPY . .
 
-# Step 5: Change working directory
+# Step 6: Change working directory
 WORKDIR "/src/src/Web/Website"
 
-# Step 6: Build the project
+# Step 7: Build the project
 RUN dotnet build "Website.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
