@@ -10,10 +10,12 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 
-# Copy the csproj file
-COPY ["src/Web/Website/Website.csproj", "src/Web/Website/"]
 RUN echo "Contents of /src directory after copying csproj:" && ls -al /src
 RUN echo "Contents of /src/Web/Website directory after copying csproj:" && ls -al /src/Web/Website
+
+# Copy the csproj file
+COPY ["src/Web/Website/Website.csproj", "src/Web/Website/"]
+
 
 # Restore dependencies
 RUN dotnet restore "src/Web/Website/Website.csproj"
