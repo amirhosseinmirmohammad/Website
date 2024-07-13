@@ -14,7 +14,7 @@ WORKDIR /src
 RUN echo "Listing /src directory before COPY command" && ls -al /src
 
 # Step 2: Copy the Website.csproj file
-COPY ["src/Web/Website/Website.csproj", "/src/Web/Website/"]
+COPY ["Website.csproj", "/src/Web/Website/"]
 
 # Step 3: Add debug command to list files after copying
 RUN echo "Listing /src/Web/Website directory after COPY command" && ls -al /src/Web/Website
@@ -26,10 +26,10 @@ RUN dotnet restore "/src/Web/Website/Website.csproj"
 COPY . .
 
 # Step 6: Change working directory
-WORKDIR "/src/src/Web/Website"
+WORKDIR "/src/Web/Website"
 
 # Step 7: Add debug command to list files before building
-RUN echo "Listing /src/src/Web/Website directory before build" && ls -al /src/src/Web/Website
+RUN echo "Listing /src/Web/Website directory before build" && ls -al /src/Web/Website
 
 # Step 8: Build the project
 RUN dotnet build "Website.csproj" -c $BUILD_CONFIGURATION -o /app/build
