@@ -21,6 +21,9 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
+      - name: List contents of src/Web/Website
+        run: ls -al src/Web/Website
+
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
@@ -29,3 +32,4 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: amirhosseinmirmohammad17/website:latest
+          no-cache: true
