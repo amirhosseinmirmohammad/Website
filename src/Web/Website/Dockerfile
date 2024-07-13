@@ -13,19 +13,37 @@ WORKDIR /src
 # Step 1: Copy the .csproj file to the container
 COPY ["Website.csproj", "./Web/Website/"]
 
+# Debug: List contents of /src directory
+RUN echo "Contents of /src before dotnet restore" && ls -al /src
+
 # Step 2: Restore the dependencies
 RUN dotnet restore "./Web/Website/Website.csproj"
+
+# Debug: List contents of /src/Web/Website directory after restore
+RUN echo "Contents of /src/Web/Website after dotnet restore" && ls -al /src/Web/Website
 
 # Step 3: Copy the rest of the application files
 COPY . .
 
+# Debug: List contents of /src directory after copy
+RUN echo "Contents of /src after copying all files" && ls -al /src
+
 # Step 4: Change working directory to the project folder
 WORKDIR "/src/Web/Website"
+
+# Debug: Print the current working directory
+RUN echo "Current working directory" && pwd
+
+# Debug: List contents of the working directory
+RUN echo "Contents of /src/Web/Website before dotnet build" && ls -al /src/Web/Website
 
 # Step 5: Build the project
 RUN dotnet build "./Website.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
-# Step 6: Publish the application
+# Debug: List contents of /app/build directory after build
+RUN echo "Contents of /app/build after dotnet build" && ls -al /app/build
+
+# Use the build stage for publishing
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
 RUN dotnet publish "./Website.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
