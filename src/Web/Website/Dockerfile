@@ -7,7 +7,6 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["nuget.config", "."]
 COPY ["Website.csproj", "."]
 RUN --mount=type=cache,id=nuget,target=/root/.nuget/packages \
     dotnet restore "./Website.csproj"
