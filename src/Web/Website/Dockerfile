@@ -11,17 +11,23 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 
 # Copy the csproj file
-COPY ["Website.csproj", "src/Web/Website/"]
+COPY ["src/Web/Website/Website.csproj", "src/Web/Website/"]
+RUN echo "Contents of /src directory after copying csproj:" && ls -al /src
+RUN echo "Contents of /src/Web/Website directory after copying csproj:" && ls -al /src/Web/Website
+
+# Restore dependencies
 RUN dotnet restore "src/Web/Website/Website.csproj"
 
 # Copy the rest of the files
 COPY . .
+RUN echo "Contents of /src directory after copying all files:" && ls -al /src
+RUN echo "Contents of /src/src/Web/Website directory before build:" && ls -al /src/src/Web/Website
 
 # Set the working directory
 WORKDIR "/src/src/Web/Website"
 
 # Build the project
-RUN dotnet build "Website.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "Website.csproj" -c $BUILD_CONFIGURATION -o /app/build || { echo 'dotnet build failed'; exit 1; }
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
