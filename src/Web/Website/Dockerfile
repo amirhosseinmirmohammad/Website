@@ -28,14 +28,27 @@ COPY . .
 # Step 6: Change working directory
 WORKDIR "/src/src/Web/Website"
 
-# Step 7: Build the project
+# Step 7: Add debug command to list files before building
+RUN echo "Listing /src/src/Web/Website directory before build" && ls -al /src/src/Web/Website
+
+# Step 8: Build the project
 RUN dotnet build "Website.csproj" -c $BUILD_CONFIGURATION -o /app/build
+
+# Step 9: Add debug command to list build output
+RUN echo "Listing /app/build directory after build" && ls -al /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
 RUN dotnet publish "Website.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
+# Step 10: Add debug command to list publish output
+RUN echo "Listing /app/publish directory after publish" && ls -al /app/publish
+
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+
+# Step 11: Add debug command to list final directory contents
+RUN echo "Listing /app directory in final stage" && ls -al /app
+
 ENTRYPOINT ["dotnet", "Website.dll"]
