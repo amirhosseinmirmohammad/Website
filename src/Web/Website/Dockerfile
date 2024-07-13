@@ -6,6 +6,7 @@ EXPOSE 8080
 EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
+echo "I am a code."
 WORKDIR /src
 COPY ["Website.csproj", "."]
 RUN --mount=type=cache,id=nuget,target=/root/.nuget/packages \
