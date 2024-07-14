@@ -1,6 +1,3 @@
-# See https://aka.ms/customizecontainer to learn how to customize your debug container 
-# and how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
 # Base image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER app
@@ -18,7 +15,7 @@ RUN dotnet restore "src/Web/Website/Website.csproj"
 COPY . .
 WORKDIR "/src/src/Web/Website"
 # Debugging line to check contents of /src/Web/Website
-RUN ls -al /src/Web/Website
+RUN echo "=== Start listing /src/Web/Website ===" && ls -al /src/Web/Website && echo "=== End listing /src/Web/Website ==="
 RUN dotnet build "Website.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # Publish image
