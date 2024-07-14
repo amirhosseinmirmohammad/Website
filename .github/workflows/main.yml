@@ -28,7 +28,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: src/Web/Website
-          file: src/Web/Website/Docker/Dockerfile
+          file: src/Web/Website/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
           tags: amirhosseinmirmohammad17/website:latest
