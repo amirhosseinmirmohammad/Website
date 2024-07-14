@@ -17,6 +17,8 @@ RUN dotnet restore "src/Web/Website/Website.csproj"
 
 COPY . .
 WORKDIR "/src/src/Web/Website"
+# Debugging line to check contents of /src/Web/Website
+RUN ls -al /src/Web/Website
 RUN dotnet build "Website.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # Publish image
