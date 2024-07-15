@@ -11,14 +11,14 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 
 # کپی کردن فایل csproj
-COPY src/Web/Website/Website.csproj src/Web/Website/
-RUN dotnet restore src/Web/Website/Website.csproj
+COPY ["Website.csproj", "Website/"]
+RUN dotnet restore Website.csproj
 
 # کپی کردن بقیه فایل‌ها
 COPY . .
 
 # تنظیم مسیر کاری و ساخت پروژه
-WORKDIR /src/src/Web/Website
+WORKDIR Website
 RUN dotnet build Website.csproj -c $BUILD_CONFIGURATION -o /app/build
 
 # Publish image
