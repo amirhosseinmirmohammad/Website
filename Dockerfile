@@ -10,7 +10,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 # Copy csproj and restore as distinct layers
-COPY src/Web/Website.csproj src/Web/Website/
+COPY src/Web/Website/Website.csproj src/Web/Website/
 RUN dotnet restore src/Web/Website/Website.csproj
 # Copy everything else and build
 COPY . .
