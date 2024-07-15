@@ -9,19 +9,19 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["Website.csproj", "Website/"]
-RUN dotnet restore "Website/Website.csproj"
+COPY ["src/Web/Website/Website.csproj", "src/Web/Website/"]
+RUN dotnet restore "src/Web/Website/Website.csproj"
 
 COPY . .
-WORKDIR "/src"
-# Debugging line to check contents of /src/Website
-RUN echo "=== Start listing /src/Website ===" && ls -al /src/Website && echo "=== End listing /src/Website ==="
-RUN dotnet build "Website/Website.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/src/Web/Website"
+# Debugging line to check contents of /src/Web/Website
+RUN echo "=== Start listing /src/Web/Website ===" && ls -al /src/Web/Website && echo "=== End listing /src/Web/Website ==="
+RUN dotnet build "Website.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # Publish image
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "Website/Website.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "Website.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # Final image
 FROM base AS final
