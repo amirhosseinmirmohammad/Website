@@ -12,7 +12,7 @@ WORKDIR /src
 
 # کپی کردن فایل csproj
 COPY ["Website.csproj", "Website/"]
-RUN dotnet restore Website.csproj
+RUN dotnet restore src/Web/Website/Website.csproj
 
 # کپی کردن بقیه فایل‌ها
 COPY . .
