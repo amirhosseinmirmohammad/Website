@@ -16,12 +16,12 @@ RUN dotnet restore src/Web/Website/Website.csproj
 
 # Copy everything else and build
 COPY . .
-WORKDIR /src/src/Web/Website
-RUN dotnet build Website.csproj -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR /src
+RUN dotnet build src/Web/Website/Website.csproj -c $BUILD_CONFIGURATION -o /app/build
 
 # Publish image
 FROM build AS publish
-RUN dotnet publish Website.csproj -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish src/Web/Website/Website.csproj -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # Final image
 FROM base AS final
