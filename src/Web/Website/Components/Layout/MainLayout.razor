@@ -1,8 +1,16 @@
 ﻿@inherits LayoutComponentBase
 
+<!-- Spinner Start -->
+<div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+<!-- Spinner End -->
+
 <nav class="navbar navbar-expand-lg bg-white navbar-light fixed-top shadow py-lg-0 px-4 px-lg-5 wow fadeIn" data-wow-delay="0.1s">
     <a href="#home" class="navbar-brand d-block d-lg-none">
-        <h1 class="text-primary fw-bold m-0">Me</h1>
+        <h2 class="text-primary fw-bold m-0">Me</h2>
     </a>
     <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
         <span class="navbar-toggler-icon"></span>
@@ -15,7 +23,7 @@
 @*             <a href="#service" class="nav-item nav-link">Services</a>
  *@        </div>
         <a href="#home" class="navbar-brand bg-secondary py-3 px-4 mx-3 d-none d-lg-block">
-            <h1 class="text-primary fw-bold m-0">Me</h1>
+            <h2 class="text-primary fw-bold m-0">Me</h2>
         </a>
         <div class="navbar-nav me-auto py-0">
             <a href="#project" class="nav-item nav-link">Projects</a>
@@ -32,7 +40,7 @@
     <div class="container py-5">
         <div class="row g-5 mb-5 wow fadeInUp" data-wow-delay="0.1s">
             <div class="col-lg-6">
-                <h1 class="display-5 mb-0">Let's Work Together</h1>
+                <h2 class="display-5 mb-0">Let's Work Together</h2>
             </div>
             <div class="col-lg-6 text-lg-end">
                 <a class="btn btn-primary py-3 px-5" href="tell:+989126846495">Call Me</a>
@@ -40,25 +48,27 @@
         </div>
         <div class="row g-5">
             <div class="col-lg-5 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                <p class="mb-2">My office:</p>
-                <h3 class="fw-bold">123 Street, New York, USA</h3>
+@*                 <p class="mb-2">Location :</p>
+                <h3 class="fw-bold">123 Street, New York, USA</h3> *@
                 <hr class="w-100">
                 <p class="mb-2">Call me:</p>
-                <h3 class="fw-bold">+012 345 6789</h3>
+                <h3 class="fw-bold footersize"><a href="tel:+989126846495">+98 912 684 6495</a></h3>
                 <hr class="w-100">
                 <p class="mb-2">Mail me:</p>
-                <h3 class="fw-bold">info@example.com</h3>
+                <h3 class="fw-bold footersize"><a href="mailto:amirhosseinmirmohammad@gmail.com">amirhosseinmirmohammad@gmail.com</a></h3>
                 <hr class="w-100">
                 <p class="mb-2">Follow me:</p>
                 <div class="d-flex pt-2">
-                    <a class="btn btn-square btn-primary me-2" href=""><i class="fab fa-twitter"></i></a>
-                    <a class="btn btn-square btn-primary me-2" href=""><i class="fab fa-facebook-f"></i></a>
-                    <a class="btn btn-square btn-primary me-2" href=""><i class="fab fa-youtube"></i></a>
-                    <a class="btn btn-square btn-primary me-2" href=""><i class="fab fa-linkedin-in"></i></a>
+                    <a class="btn btn-square btn-primary me-2" href="https://instagram.com/amirhosseinmirmohammad"><i class="fab fa-instagram"></i></a>
+@*                     <a class="btn btn-square btn-primary me-2" href=""><i class="fab fa-facebook-f"></i></a>
+                    <a class="btn btn-square btn-primary me-2" href=""><i class="fab fa-youtube"></i></a> *@
+                    <a class="btn btn-square btn-primary me-2" href="https://www.linkedin.com/in/amirhosseinmirmohammad"><i class="fab fa-linkedin-in"></i></a>
                 </div>
             </div>
             <div class="col-lg-7 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                <p class="mb-4">The contact form is currently inactive. Get a functional and working contact form with Ajax & PHP in a few minutes. Just copy and paste the files, add a little code and you're done. <a href="https://htmlcodex.com/contact-form">Download Now</a>.</p>
+                <p class="mb-4">
+                    You can also contact me through the form below, but for a faster response, please call the phone number listed on the site.
+                </p>
                 <form>
                     <div class="row g-3">
                         <div class="col-md-6">
@@ -113,4 +123,4 @@
 <!-- Copyright End -->
 
 <!-- Back to Top -->
-<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fas fa-chevron-up"></i></a>
